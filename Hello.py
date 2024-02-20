@@ -25,6 +25,7 @@ def run():
     )
 
     st.write("# Welcome to Streamlit! 👋")
+    st.write("BY DERICK EMMANUEL J. MARPURI")
 
     st.sidebar.success("Select a demo above.")
 
