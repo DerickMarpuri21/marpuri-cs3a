@@ -46,14 +46,3 @@ if st.button("Submit"):
     st.balloons()
 
 
-if plaintext == key:
-    st.write("Plaintext should not be equal to the key")
-elif len(plaintext.decode()) < len(key.decode()):
-    st.write("Plaintext length should be equal or greater than the length of key")
-else:
-    encrypted = xor_encrypt(plaintext, key)
-    st.write('Ciphertext:', encrypted.decode())
-
-    decrypted = xor_decrypt(encrypted, key)
-    st.write('Decrypted:', decrypted.decode())
-
