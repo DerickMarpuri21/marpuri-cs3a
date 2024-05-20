@@ -173,3 +173,67 @@ def asymmetric_encrypt_decrypt():
         try:
             decrypted = rsa_decrypt(bytes.fromhex(asym_plaintext), private_key)
             st.write('Decrypted:', decrypted)
+# Asymmetric Encryption Functions
+def asymmetric_encrypt_decrypt():
+    private_key, public_key = generate_rsa_keys()
+    st.write("Public Key:", public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+    ).decode())
+    st.write("Private Key:", private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption()
+    ).decode())
+
+    asym_plaintext = st.text_area("Plaintext (Asymmetric):")
+
+    if st.button("Encrypt (RSA)"):
+        try:
+            encrypted = rsa_encrypt(asym_plaintext, public_key)
+            st.write('Ciphertext:', encrypted.hex())
+        except Exception as e:
+            st.error("Encryption failed: " + str(e))
+
+    if st.button("Decrypt (RSA)"):
+        try:
+            decrypted = rsa_decrypt(bytes.fromhex(asym_plaintext), private_key)
+            st.write('Decrypted:', decrypted)
+        except Exception as e:
+            st.error("Decryption failed: " + str(e))
+
+# Hashing Functions Section
+def hashing_functions():
+    text_to_hash = st.text_area("Text to Hash:")
+    hash_algo = st.selectbox("Hash Algorithm", ["MD5", "SHA-1", "SHA-256", "SHA-512"])
+
+    if st.button("Hash Text"):
+        hashed_text = hash_text(text_to_hash, hash_algo)
+        st.write('Hashed Text:', hashed_text)
+
+    file_to_hash = st.file_uploader("File to Hash")
+
+    if st.button("Hash File"):
+        if file_to_hash:
+            try:
+                hashed_file = hash_file(file_to_hash, hash_algo)
+                st.write('Hashed File:', hashed_file)
+            except Exception as e:
+                st.error("Hashing failed: " + str(e))
+        else:
+            st.error("Please upload a file to hash")
+
+# Streamlit Interface
+st.title("Applied Cryptography Application")
+
+# Symmetric Encryption Section
+st.header("Symmetric Encryption")
+symmetric_encrypt_decrypt()
+
+# Asymmetric Encryption Section
+st.header("Asymmetric Encryption")
+asymmetric_encrypt_decrypt()
+
+# Hashing Functions Section
+st.header("Hashing Functions")
+hashing_functions()
