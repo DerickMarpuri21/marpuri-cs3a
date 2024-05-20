@@ -208,3 +208,5 @@ if hash_file_button:
             st.error("Hashing failed: " + str(e))
     else:
         st.error("Please upload a file to hash")
+ 
+ 
