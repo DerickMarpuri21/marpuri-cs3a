@@ -239,6 +239,7 @@ def main():
             if st.button("Decrypt"):
                 if private_key and encrypted_text:
                     try:
+                        private_key = private_key.strip()
                         decrypted_text = decrypt_text_rsa(base64.b64decode(encrypted_text), private_key.encode('utf-8'))
                         st.success("Decrypted Text: " + decrypted_text)
                     except Exception as e:
