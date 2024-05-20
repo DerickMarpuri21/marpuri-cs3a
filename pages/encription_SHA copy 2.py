@@ -213,7 +213,7 @@ def hashing_functions():
 
     file_to_hash = st.file_uploader("File to Hash")
 
-    if st.button("Hash File"):
+    if st.button("Hash File"): 
         if file_to_hash:
             try:
                 hashed_file = hash_file(file_to_hash, hash_algo)
