@@ -102,7 +102,7 @@ def hash_file(file, algorithm):
     return hash_func.hexdigest()
 
 # Streamlit Interface
-st.title("Applied Cryptography Application")
+st.title("Web Application")
 
 # Symmetric Encryption Section
 st.header("Symmetric Encryption")
