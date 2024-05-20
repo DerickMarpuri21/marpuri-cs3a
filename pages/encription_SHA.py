@@ -180,11 +180,14 @@ def main():
             
             if st.button("Encrypt"):
                 if key and text:
-                    try:
-                        encrypted_text = encrypt_text_aes(text, key.encode('utf-8'))
-                        st.text_area("Encrypted Text:", encrypted_text)
-                    except Exception as e:
-                        st.error(f"Encryption failed: {e}")
+                    if len(key) in [16, 24, 32]:
+                        try:
+                            encrypted_text = encrypt_text_aes(text, key.encode('utf-8'))
+                            st.text_area("Encrypted Text:", encrypted_text)
+                        except Exception as e:
+                            st.error(f"Encryption failed: {e}")
+                    else:
+                        st.warning("Key must be 16, 24, or 32 bytes long.")
                 else:
                     st.warning("Please provide both key and text to encrypt.")
         
@@ -225,11 +228,14 @@ def main():
             
             if st.button("Decrypt"):
                 if key and encrypted_text:
-                    try:
-                        decrypted_text = decrypt_text_aes(encrypted_text, key.encode('utf-8'))
-                        st.success("Decrypted Text: " + decrypted_text)
-                    except Exception as e:
-                        st.error(f"Decryption failed: {e}")
+                    if len(key) in [16, 24, 32]:
+                        try:
+                            decrypted_text = decrypt_text_aes(encrypted_text, key.encode('utf-8'))
+                            st.success("Decrypted Text: " + decrypted_text)
+                        except Exception as e:
+                            st.error(f"Decryption failed: {e}")
+                    else:
+                        st.warning("Key must be 16, 24, or 32 bytes long.")
                 else:
                     st.warning("Please provide both key and encrypted text.")
         
@@ -240,7 +246,6 @@ def main():
             if st.button("Decrypt"):
                 if private_key and encrypted_text:
                     try:
-                        private_key = private_key.strip()
                         decrypted_text = decrypt_text_rsa(base64.b64decode(encrypted_text), private_key.encode('utf-8'))
                         st.success("Decrypted Text: " + decrypted_text)
                     except Exception as e:
