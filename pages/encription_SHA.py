@@ -83,12 +83,16 @@ def decrypt_text_fernet(encrypted_text, key):
 
 # Function to encrypt text using AES (manual)
 def encrypt_text_aes(text, key):
+    if len(key) not in [16, 24, 32]:
+        raise ValueError("Key must be 16, 24, or 32 bytes long.")
     cipher = AES.new(key, AES.MODE_CBC)
     ct_bytes = cipher.encrypt(pad(text.encode()))
     return base64.b64encode(cipher.iv + ct_bytes).decode('utf-8')
 
 # Function to decrypt text using AES (manual)
 def decrypt_text_aes(encrypted_text, key):
+    if len(key) not in [16, 24, 32]:
+        raise ValueError("Key must be 16, 24, or 32 bytes long.")
     encrypted_data = base64.b64decode(encrypted_text)
     iv = encrypted_data[:16]
     ct = encrypted_data[16:]
