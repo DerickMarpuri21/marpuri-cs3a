@@ -176,7 +176,7 @@ if asym_encrypt_button or asym_decrypt_button:
         if asym_encrypt_button:
             encrypted = rsa_encrypt(asym_plaintext, public_key)
             st.write('Ciphertext:', encrypted.hex())
-        elif asym
+        elif asym:
             decrypted = rsa_decrypt(bytes.fromhex(asym_plaintext), private_key)
             st.write('Decrypted:', decrypted)
     except Exception as e:
@@ -208,5 +208,4 @@ if hash_file_button:
             st.error("Hashing failed: " + str(e))
     else:
         st.error("Please upload a file to hash")
- 
  
